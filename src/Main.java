@@ -4,18 +4,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Main {
-    public static String calc(String input) {
+    public static String calc(String input) throws IOException {
         System.out.println("Для вычисления введите исходные данные в следующем формате: \"a_c_b\", где \"a\" и \"b\" - целые числа от 1 до 10 включительно, \"с\" - знак операции сложения, вычитания, умножения или деления, \"_\" - пробел.)");
         Scanner scan = new Scanner(System.in);
-        return scan.nextLine();
-    }
-    public static void main(String[] args) throws IOException  {
-        String input_data;
-        input_data = calc(null);
+        String input_data = scan.nextLine();
         String regex1 = "\\d?\\d\\s\\W\\s\\d\\d?";
         Pattern pattern1 = Pattern.compile(regex1);
         Matcher matcher1 = pattern1.matcher(input_data);
         boolean b1 = matcher1.matches();
+        int result;
         if (!b1) {
             throw new IOException("Некорректно введено выражение или использованы не целые числа.");
         } else {
@@ -38,16 +35,16 @@ class Main {
                 op = operation.charAt(0);
                 switch (op) {
                     case '+':
-                        System.out.println("Результат = " + (a + b));
+                        result = a + b;
                         break;
                     case '-':
-                        System.out.println("Результат = " + (a - b));
+                        result = a - b;
                         break;
                     case '*':
-                        System.out.println("Результат = " + (a * b));
+                        result = a * b;
                         break;
                     case '/':
-                        System.out.println("Результат = " + (a / b));
+                        result = a / b;
                         break;
                     default:
                         throw new IOException("Некорректно указана операция.");
@@ -55,6 +52,12 @@ class Main {
                 }
             }
         }
+        return String.valueOf(result);
+    }
+    public static void main(String[] args) throws IOException  {
+        String res_out;
+        res_out = calc(null);
+        System.out.println(res_out);
     }
 
 }
